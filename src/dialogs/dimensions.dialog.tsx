@@ -15,8 +15,9 @@ import { useApp } from "@/contexts/app.context";
 export function DimensionsDialog() {
   const { createEmptyGrid, dimensions, setCols, setRows } = useApp();
 
+  // Enable create button if rows and cols are between 3 and 50
   const enableCreateButton = [dimensions.rows, dimensions.cols].every(
-    (val) => val && val > 0 && val <= 50
+    (val) => val && val >= 3 && val <= 50
   );
 
   return (
@@ -28,7 +29,8 @@ export function DimensionsDialog() {
         <DialogHeader>
           <DialogTitle>New Empty Grid</DialogTitle>
           <DialogDescription>
-            Create a new empty grid with the specified dimensions (max 50x50).
+            Create a new empty grid with the specified dimensions <br />
+            (min: 3x3, max: 50x50).
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-5 py-4">
@@ -37,7 +39,7 @@ export function DimensionsDialog() {
             <Input
               id="rows"
               max={50}
-              min={1}
+              min={3}
               onChange={(event) =>
                 setRows(event.target.value ? parseInt(event.target.value) : 0)
               }
@@ -50,7 +52,7 @@ export function DimensionsDialog() {
             <Input
               id="columns"
               max={50}
-              min={1}
+              min={3}
               onChange={(event) =>
                 setCols(event.target.value ? parseInt(event.target.value) : 0)
               }

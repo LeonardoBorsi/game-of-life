@@ -42,7 +42,7 @@ export const GameToolbar: FC = () => {
             value={[1100 - speed]}
             min={100}
             max={1000}
-            onValueChange={(value) => setSpeed(1100 - value[0])}
+            onValueChange={(value) => setSpeed(1100 - value[0])} // Invert value to get the correct speed
             step={100}
           />
         </PopoverContent>

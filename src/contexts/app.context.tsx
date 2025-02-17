@@ -24,12 +24,14 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
 
   const showMenu = () => setAppState(AppState.MENU);
 
+  // Creates an empty grid based on the current dimensions and resets generation
   const createEmptyGrid = () => {
     setInitialGrid(Array(dimensions.rows).fill(Array(dimensions.cols).fill(0)));
     setInitialGeneration(0);
     setAppState(AppState.GAME);
   };
 
+  // Parses and loads a grid configuration from an uploaded file
   const createGridFromSourceFile = () => {
     if (sourceFile === null) return;
 
@@ -48,6 +50,7 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
         if (!rows || !cols)
           throw new Error("Error while parsing rows and cols");
 
+        // Parses grid values, converting '*' to 1 and other characters to 0
         const grid = lines.slice(2, 2 + rows).map((line) =>
           line
             .trim()
@@ -55,6 +58,7 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
             .map((char) => (char === "*" ? 1 : 0))
         );
 
+        // Ensures the parsed grid matches expected dimensions
         if (grid.length !== rows || grid.some((row) => row.length !== cols)) {
           throw new Error("Error while parsing grid");
         }

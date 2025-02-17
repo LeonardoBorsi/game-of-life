@@ -18,11 +18,13 @@ export const GameProvider: FC<GameProviderProps> = ({
 
   const downloadCurrentGrid = () => downloadGridFile(generation, grid);
 
+  // Advances the grid to the next generation
   const nextGeneration = () => {
     setGrid((prev) => getNextGeneration(prev));
     setGeneration((prevStep) => prevStep + 1);
   };
 
+  // Resets the game to the initial state
   const resetGame = () => {
     setIsRunning(false);
     setGeneration(initialGeneration);
@@ -32,6 +34,7 @@ export const GameProvider: FC<GameProviderProps> = ({
   const startGame = () => setIsRunning(true);
   const stopGame = () => setIsRunning(false);
 
+  // Toggles the state of a specific cell in the grid
   const toggleCell = (x: number, y: number) => {
     setGrid((prevGrid) =>
       prevGrid.map((row, i) =>
@@ -40,6 +43,7 @@ export const GameProvider: FC<GameProviderProps> = ({
     );
   };
 
+  // Runs the game loop at the specified speed when the game is running
   useEffect(() => {
     if (!isRunning) return;
     const interval = setInterval(() => {
